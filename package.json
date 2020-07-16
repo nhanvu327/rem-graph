@@ -1,6 +1,7 @@
 {
   "name": "rem-graph-web",
   "version": "0.1.0",
+  "author": "Nhan Vu",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
