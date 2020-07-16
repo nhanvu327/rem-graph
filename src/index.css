@@ -1,5 +1,20 @@
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
 body {
+  position: relative;
+  color: white;
+  height: 100vh;
+  background-color: #232c39;
+  background-image: linear-gradient(
+    45deg,
+    rgba(0, 216, 255, 0.5) 10%,
+    rgba(0, 1, 127, 0.7)
+  );
   margin: 0;
+  padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -7,7 +22,41 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+h2 {
+  margin: 0;
+  font-size: 2.25rem;
+  font-weight: bold;
+  letter-spacing: -0.025em;
+  color: #fff;
+}
+
+p {
+  font-size: 24px;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  color: white;
+  opacity: 0.75;
+}
+
+a:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+#cy {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.tippy-popper {
+  transition: none !important;
 }
