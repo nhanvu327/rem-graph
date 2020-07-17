@@ -1,6 +1,7 @@
 import getRemByID from "../api/getRemByID";
 import nthOccurrence from "./nthOccurence";
 import { stripHtml } from "./dom";
+import dedupeArr from "./dedupeArr";
 // import getIsLocal from "../utils/isLocal";
 
 const globalSlotRems = [];
@@ -197,43 +198,37 @@ async function bootstrapData(remId) {
 
     if (Array.isArray(v.content)) {
       graphElements.push(
-        ...v.content
-          .filter(
-            (c) =>
-              c.i === "q" &&
-              !graphElements.some(
-                (g) =>
-                  g.data.target === c._id && g.data.target_arrow_shape === "vee"
-              )
-          )
-          .map((c) => ({
-            data: {
-              source: v._id,
-              target: c._id,
-              target_arrow_shape: "vee",
-            },
-          }))
+        ...dedupeArr([
+          ...v.content
+            .filter((c) => c.i === "q")
+            .map((c) => ({
+              data: {
+                source: v._id,
+                target: c._id,
+                target_arrow_shape: "vee",
+              },
+            })),
+        ])
       );
     }
 
     if (Array.isArray(v.name)) {
       graphElements.push(
-        ...v.name
-          .filter(
-            (c) =>
-              c.i === "q" &&
-              !graphElements.some(
-                (g) =>
-                  g.data.target === c._id && g.data.target_arrow_shape === "vee"
-              )
-          )
-          .map((c) => ({
-            data: {
-              source: v._id,
-              target: c._id,
-              target_arrow_shape: "vee",
-            },
-          }))
+        ...dedupeArr([
+          ...v.name
+            .filter(
+              (c) =>
+                c.i === "q" &&
+                !graphElements.some((g) => g?.data?.target === c._id)
+            )
+            .map((c) => ({
+              data: {
+                source: v._id,
+                target: c._id,
+                target_arrow_shape: "vee",
+              },
+            })),
+        ])
       );
     }
   });
