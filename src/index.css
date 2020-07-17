@@ -60,3 +60,8 @@ a:hover {
 .tippy-popper {
   transition: none !important;
 }
+
+.tippy-content {
+  overflow: auto;
+  max-height: 500px;
+}
