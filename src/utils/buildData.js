@@ -12,10 +12,18 @@ async function getName(name, visibleRems = [], remId, isWithAnchor) {
   if (Array.isArray(name)) {
     const names = await Promise.all(
       name
-        .filter((n) => typeof n === "string" || !!n._id)
+        .filter((n) => typeof n === 'string' || n.i === 'q' || n.i === 'i' || n.i === 'm')
         .map(async (r) => {
           if (typeof r === "string") {
             return r;
+          }
+
+          if (r.i === 'm') {
+            return r.text;
+          }
+
+          if (r.i === 'i') {
+            return `<img src=${r.url} width=${r.width} height={r.height} />`;
           }
 
           const existingRem = [...globalSlotRems, ...visibleRems].find(
@@ -63,7 +71,7 @@ async function getContent(content, visibleRems = [], remId, isWithAnchor) {
   if (Array.isArray(content)) {
     const nest = await Promise.all(
       content
-        .filter((n) => typeof n === "string" || !!n._id)
+        .filter((n) => typeof n === 'string' || n.i === 'q' || n.i === 'i' || n.i === 'm')
         .map(async (r) => {
           if (typeof r === "string") {
             return r;
@@ -71,6 +79,10 @@ async function getContent(content, visibleRems = [], remId, isWithAnchor) {
 
           if (r.i === "m") {
             return r.text;
+          }
+
+          if (r.i === 'i') {
+            return `<img src=${r.url} width=${r.width} height={r.height} />`;
           }
 
           const existingRem = [...contentRems, ...visibleRems].find(
@@ -178,7 +190,7 @@ async function bootstrapData(remId) {
     if (Array.isArray(v.content)) {
       graphElements.push(
         ...v.content
-          .filter((c) => typeof c !== "string")
+          .filter((c) => c.i === 'q')
           .map((c) => ({
             data: {
               source: v._id,
@@ -194,7 +206,7 @@ async function bootstrapData(remId) {
         ...v.name
           .filter(
             (c) =>
-              typeof c !== "string" &&
+            c.i === 'q' &&
               !graphElements.some((g) => g.data.target === c._id)
           )
           .map((c) => ({
