@@ -12,17 +12,20 @@ async function getName(name, visibleRems = [], remId, isWithAnchor) {
   if (Array.isArray(name)) {
     const names = await Promise.all(
       name
-        .filter((n) => typeof n === 'string' || n.i === 'q' || n.i === 'i' || n.i === 'm')
+        .filter(
+          (n) =>
+            typeof n === "string" || n.i === "q" || n.i === "i" || n.i === "m"
+        )
         .map(async (r) => {
           if (typeof r === "string") {
             return r;
           }
 
-          if (r.i === 'm') {
+          if (r.i === "m") {
             return r.text;
           }
 
-          if (r.i === 'i') {
+          if (r.i === "i") {
             return `<img src=${r.url} width=${r.width} height={r.height} />`;
           }
 
@@ -71,7 +74,10 @@ async function getContent(content, visibleRems = [], remId, isWithAnchor) {
   if (Array.isArray(content)) {
     const nest = await Promise.all(
       content
-        .filter((n) => typeof n === 'string' || n.i === 'q' || n.i === 'i' || n.i === 'm')
+        .filter(
+          (n) =>
+            typeof n === "string" || n.i === "q" || n.i === "i" || n.i === "m"
+        )
         .map(async (r) => {
           if (typeof r === "string") {
             return r;
@@ -81,7 +87,7 @@ async function getContent(content, visibleRems = [], remId, isWithAnchor) {
             return r.text;
           }
 
-          if (r.i === 'i') {
+          if (r.i === "i") {
             return `<img src=${r.url} width=${r.width} height={r.height} />`;
           }
 
@@ -130,7 +136,9 @@ async function getContent(content, visibleRems = [], remId, isWithAnchor) {
 }
 
 async function bootstrapData(remId) {
-  const context = isLocal ?  undefined : await window.RemNoteAPI.v0.get_context();
+  const context = isLocal
+    ? undefined
+    : await window.RemNoteAPI.v0.get_context();
 
   const documentRem = isLocal
     ? await getRemByID(remId)
@@ -190,7 +198,14 @@ async function bootstrapData(remId) {
     if (Array.isArray(v.content)) {
       graphElements.push(
         ...v.content
-          .filter((c) => c.i === 'q')
+          .filter(
+            (c) =>
+              c.i === "q" &&
+              !graphElements.some(
+                (g) =>
+                  g.data.target === c._id && g.data.target_arrow_shape === "vee"
+              )
+          )
           .map((c) => ({
             data: {
               source: v._id,
@@ -206,8 +221,11 @@ async function bootstrapData(remId) {
         ...v.name
           .filter(
             (c) =>
-            c.i === 'q' &&
-              !graphElements.some((g) => g.data.target === c._id)
+              c.i === "q" &&
+              !graphElements.some(
+                (g) =>
+                  g.data.target === c._id && g.data.target_arrow_shape === "vee"
+              )
           )
           .map((c) => ({
             data: {
