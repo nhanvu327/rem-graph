@@ -1,3 +1,4 @@
+import katex from "katex";
 import getRemByID from "../api/getRemByID";
 import nthOccurrence from "./nthOccurence";
 import { stripHtml } from "./dom";
@@ -6,8 +7,6 @@ import dedupeArr from "./dedupeArr";
 
 const globalSlotRems = [];
 const contentRems = [];
-
-const isLocal = false;
 
 async function getName(name, visibleRems = [], remId, isWithAnchor) {
   if (Array.isArray(name)) {
@@ -23,6 +22,12 @@ async function getName(name, visibleRems = [], remId, isWithAnchor) {
           }
 
           if (r.i === "m") {
+            if (r.x === true) {
+              const latexString = katex.renderToString(r.text, {
+                throwOnError: false,
+              });
+              return latexString;
+            }
             return r.text;
           }
 
@@ -85,6 +90,12 @@ async function getContent(content, visibleRems = [], remId, isWithAnchor) {
           }
 
           if (r.i === "m") {
+            if (r.x === true) {
+              const latexString = katex.renderToString(r.text, {
+                throwOnError: false,
+              });
+              return latexString;
+            }
             return r.text;
           }
 
@@ -137,18 +148,16 @@ async function getContent(content, visibleRems = [], remId, isWithAnchor) {
 }
 
 async function bootstrapData(remId) {
-  const context = isLocal
-    ? undefined
-    : await window.RemNoteAPI.v0.get_context();
+  const context = await window.RemNoteAPI.v0.get_context();
 
-  const documentRem = isLocal
-    ? await getRemByID(remId)
-    : await window.RemNoteAPI.v0.get(context.documentId);
+  const documentRem = await window.RemNoteAPI.v0.get(context.documentId);
   const visibleRems = (
     await Promise.all(
       documentRem.visibleRemOnDocument.map((id) => getRemByID(id))
     )
   ).filter((e) => e.found);
+
+  visibleRems.push(documentRem);
 
   const nameWithAnchor = await Promise.all(
     visibleRems.map((v) => getName(v.name, visibleRems, v._id, true))
@@ -162,8 +171,6 @@ async function bootstrapData(remId) {
   const content = await Promise.all(
     visibleRems.map((v) => getContent(v.content, visibleRems, v._id, true))
   );
-
-  visibleRems.push(...contentRems);
 
   const graphElements = visibleRems
     .map((v, index) => {
