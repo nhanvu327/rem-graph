@@ -212,6 +212,7 @@ async function bootstrapData(remId) {
               source: v._id,
               target: c._id,
               target_arrow_shape: "vee",
+              line_color: 'orange',
             },
           }))
       );
@@ -226,6 +227,7 @@ async function bootstrapData(remId) {
               source: v._id,
               target: c._id,
               target_arrow_shape: "vee",
+              line_color: 'orange',
             },
           }))
       );
