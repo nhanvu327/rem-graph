@@ -66,9 +66,13 @@ a:hover {
   max-height: 500px;
 }
 
-.rearrange-button {
+.action-buttons {
   position: fixed;
   top: 20px;
   right: 20px;
   z-index: 1;
+}
+
+.action-buttons button {
+  margin-right: 10px;
 }

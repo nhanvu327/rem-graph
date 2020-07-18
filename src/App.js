@@ -49,8 +49,8 @@ function makePopper(ele) {
 }
 
 const chartLayout = {
-  name: 'cose-bilkent',
-  quality: 'default',
+  name: "cose-bilkent",
+  quality: "default",
   // Whether to include labels in node dimensions. Useful for avoiding label overlap
   nodeDimensionsIncludeLabels: true,
   fit: true,
@@ -73,7 +73,7 @@ const chartLayout = {
   // Whether to tile disconnected nodes
   tile: true,
   // Type of layout animation. The option set is {'during', 'end', false}
-  animate: 'end',
+  animate: "end",
   // Duration for animate:end
   // animationDuration: 500,
   // Amount of vertical space to put between degree zero nodes during tiling (can also be a function)
@@ -88,14 +88,14 @@ const chartLayout = {
   gravityRange: 3.8,
   // Initial cooling factor for incremental layout
   initialEnergyOnIncremental: 0.5,
-  animationEasing: 'ease-out',
+  animationEasing: "ease-out",
   animationDuration: 1000,
 };
 
 export default function Home() {
   useEffect(() => {
     async function bootstrapData() {
-      const graphElements = await getGraphElements("GH5MRkMCJ6R6aoLbB");
+      const graphElements = await getGraphElements();
       const filteredGraphElements = graphElements.filter((i) =>
         i.data.title
           ? true
@@ -165,9 +165,9 @@ export default function Home() {
             selector: "edge",
             style: {
               width: 1,
-              'line-color': 'data(line_color)',
-              'target-arrow-color': 'data(line_color)',
-              'target-arrow-shape': 'data(target_arrow_shape)',
+              "line-color": "data(line_color)",
+              "target-arrow-color": "data(line_color)",
+              "target-arrow-shape": "data(target_arrow_shape)",
               "curve-style": "bezier",
               "arrow-scale": 1,
               label: "data(label)",
@@ -237,6 +237,25 @@ export default function Home() {
     }
     bootstrapData();
   }, []);
+  const handleRedraw = useCallback(async () => {
+    const cy = window.cy;
+    if (cy) {
+      const graphElements = await getGraphElements();
+      const filteredGraphElements = graphElements.filter((i) =>
+        i.data.title
+          ? true
+          : graphElements.some((s) => s.data.id === i.data.source) &&
+            graphElements.some((s) => s.data.id === i.data.target)
+      );
+      cy.json({ elements: filteredGraphElements });
+    }
+  }, []);
+  const handleRecenter = useCallback(() => {
+    const cy = window.cy;
+    if (cy) {
+      cy.fit();
+    }
+  }, []);
   const handleReArrange = useCallback(() => {
     const cy = window.cy;
     if (cy) {
@@ -251,13 +270,17 @@ export default function Home() {
   return (
     <div>
       <div id="cy" />
-      <button
-        className="rearrange-button"
-        type="button"
-        onClick={handleReArrange}
-      >
-        Rearrange
-      </button>
+      <div className="action-buttons">
+        <button type="button" onClick={handleRecenter}>
+          Center
+        </button>
+        <button type="button" onClick={handleRedraw}>
+          Refresh
+        </button>
+        <button type="button" onClick={handleReArrange}>
+          Rearrange
+        </button>
+      </div>
     </div>
   );
 }

@@ -147,7 +147,7 @@ async function getContent(content, visibleRems = [], remId, isWithAnchor) {
   return "";
 }
 
-async function bootstrapData(remId) {
+async function bootstrapData() {
   const context = await window.RemNoteAPI.v0.get_context();
 
   const documentRem = await window.RemNoteAPI.v0.get(context.documentId);
