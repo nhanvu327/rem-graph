@@ -163,7 +163,7 @@ export default function Home() {
           // Whether to enable incremental mode
           randomize: true,
           // Node repulsion (non overlapping) multiplier
-          nodeRepulsion: 9000,
+          nodeRepulsion: 20000,
           // Ideal (intra-graph) edge length
           idealEdgeLength: 70,
           // Divisor to compute edge forces

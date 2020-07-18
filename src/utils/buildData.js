@@ -205,8 +205,8 @@ async function bootstrapData(remId) {
 
     if (Array.isArray(v.content)) {
       graphElements.push(
-        ...dedupeArr([
-          ...v.content
+        ...[
+          v.content
             .filter((c) => c.i === "q")
             .map((c) => ({
               data: {
@@ -215,19 +215,15 @@ async function bootstrapData(remId) {
                 target_arrow_shape: "vee",
               },
             })),
-        ])
+        ]
       );
     }
 
     if (Array.isArray(v.name)) {
       graphElements.push(
-        ...dedupeArr([
-          ...v.name
-            .filter(
-              (c) =>
-                c.i === "q" &&
-                !graphElements.some((g) => g?.data?.target === c._id)
-            )
+        ...[
+          v.name
+            .filter((c) => c.i === "q")
             .map((c) => ({
               data: {
                 source: v._id,
@@ -235,11 +231,11 @@ async function bootstrapData(remId) {
                 target_arrow_shape: "vee",
               },
             })),
-        ])
+        ]
       );
     }
   });
-  return graphElements;
+  return dedupeArr(graphElements);
 }
 
 export default bootstrapData;

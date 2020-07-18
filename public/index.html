@@ -19,6 +19,19 @@
       crossorigin="anonymous"
     />
     <script src="https://cdn.jsdelivr.net/gh/remnoteio/remnote-api@0.0/RemNoteAPI.js"></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-172975681-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "UA-172975681-1");
+    </script>
     <script>
       window.RemNoteAPI = RemNoteAPI;
     </script>
