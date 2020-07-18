@@ -55,7 +55,7 @@ const chartLayout = {
   nodeDimensionsIncludeLabels: true,
   fit: true,
   // Padding on fit
-  padding: 10,
+  padding: 50,
   // Whether to enable incremental mode
   randomize: true,
   // Node repulsion (non overlapping) multiplier
@@ -237,25 +237,6 @@ export default function Home() {
     }
     bootstrapData();
   }, []);
-  const handleRedraw = useCallback(async () => {
-    const cy = window.cy;
-    if (cy) {
-      const graphElements = await getGraphElements();
-      const filteredGraphElements = graphElements.filter((i) =>
-        i.data.title
-          ? true
-          : graphElements.some((s) => s.data.id === i.data.source) &&
-            graphElements.some((s) => s.data.id === i.data.target)
-      );
-      cy.json(filteredGraphElements);
-    }
-  }, []);
-  const handleRecenter = useCallback(() => {
-    const cy = window.cy;
-    if (cy) {
-      cy.fit();
-    }
-  }, []);
   const handleReArrange = useCallback(() => {
     const cy = window.cy;
     if (cy) {
@@ -267,6 +248,27 @@ export default function Home() {
       layout.run();
     }
   }, []);
+  const handleRedraw = useCallback(async () => {
+    const cy = window.cy;
+    if (cy) {
+      const graphElements = await getGraphElements();
+      const filteredGraphElements = graphElements.filter((i) =>
+        i.data.title
+          ? true
+          : graphElements.some((s) => s.data.id === i.data.source) &&
+            graphElements.some((s) => s.data.id === i.data.target)
+      );
+      cy.json({ elements: filteredGraphElements });
+      handleReArrange();
+    }
+  }, [handleReArrange]);
+  const handleRecenter = useCallback(() => {
+    const cy = window.cy;
+    if (cy) {
+      cy.fit();
+    }
+  }, []);
+
   return (
     <div>
       <div id="cy" />
