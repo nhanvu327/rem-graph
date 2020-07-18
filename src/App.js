@@ -247,7 +247,7 @@ export default function Home() {
           : graphElements.some((s) => s.data.id === i.data.source) &&
             graphElements.some((s) => s.data.id === i.data.target)
       );
-      cy.json({ elements: filteredGraphElements });
+      cy.json(filteredGraphElements);
     }
   }, []);
   const handleRecenter = useCallback(() => {
