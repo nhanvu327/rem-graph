@@ -195,6 +195,7 @@ async function bootstrapData() {
       graphElements.push(
         ...v.children.map((c) => ({
           data: {
+            id: `${v.id}-${c}`,
             source: v._id,
             target: c,
             target_arrow_shape: "diamond",
@@ -209,6 +210,7 @@ async function bootstrapData() {
           .filter((c) => c.i === "q")
           .map((c) => ({
             data: {
+              id: `${v._id}-${c._id}`,
               source: v._id,
               target: c._id,
               target_arrow_shape: "vee",
@@ -224,6 +226,7 @@ async function bootstrapData() {
           .filter((c) => c.i === "q")
           .map((c) => ({
             data: {
+              id: `${v._id}-${c._id}`,
               source: v._id,
               target: c._id,
               target_arrow_shape: "vee",

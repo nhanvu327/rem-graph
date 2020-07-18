@@ -259,8 +259,6 @@ export default function Home() {
             graphElements.some((s) => s.data.id === i.data.target)
       );
       cy.json({ elements: filteredGraphElements });
-      const layout = cy.layout({ name: 'breadthfirst', directed: true, padding: 2 }); 
-      layout.run();
     }
   }, []);
   const handleRecenter = useCallback(() => {
