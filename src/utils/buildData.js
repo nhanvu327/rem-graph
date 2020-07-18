@@ -188,7 +188,7 @@ async function bootstrapData(remId) {
         },
       };
     })
-    .filter((v) => v.data.title);
+    .filter((v) => v.data && v.data.title);
 
   visibleRems.forEach((v) => {
     if (v.children.length > 0) {
@@ -205,33 +205,29 @@ async function bootstrapData(remId) {
 
     if (Array.isArray(v.content)) {
       graphElements.push(
-        ...[
-          v.content
-            .filter((c) => c.i === "q")
-            .map((c) => ({
-              data: {
-                source: v._id,
-                target: c._id,
-                target_arrow_shape: "vee",
-              },
-            })),
-        ]
+        ...v.content
+          .filter((c) => c.i === "q")
+          .map((c) => ({
+            data: {
+              source: v._id,
+              target: c._id,
+              target_arrow_shape: "vee",
+            },
+          }))
       );
     }
 
     if (Array.isArray(v.name)) {
       graphElements.push(
-        ...[
-          v.name
-            .filter((c) => c.i === "q")
-            .map((c) => ({
-              data: {
-                source: v._id,
-                target: c._id,
-                target_arrow_shape: "vee",
-              },
-            })),
-        ]
+        ...v.name
+          .filter((c) => c.i === "q")
+          .map((c) => ({
+            data: {
+              source: v._id,
+              target: c._id,
+              target_arrow_shape: "vee",
+            },
+          }))
       );
     }
   });

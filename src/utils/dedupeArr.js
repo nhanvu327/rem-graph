@@ -1,11 +1,11 @@
 const dedupeArr = (arr) =>
   arr.reduce((acc, current) => {
-    const x = current.data?.source
-      ? acc.find(
+    const x = current?.data?.source
+      ? acc.some(
           (item) =>
-            item.data?.source === current.data?.source &&
-            item.data?.target === current.data?.target &&
-            item.data?.target_arrow_shape === current.data?.target_arrow_shape
+            item?.data?.source === current?.data?.source &&
+            item?.data?.target === current?.data?.target &&
+            item?.data?.target_arrow_shape === current?.data?.target_arrow_shape
         )
       : false;
     if (!x) {

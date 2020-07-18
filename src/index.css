@@ -65,3 +65,10 @@ a:hover {
   overflow: auto;
   max-height: 500px;
 }
+
+.rearrange-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1;
+}
