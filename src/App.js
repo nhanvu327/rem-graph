@@ -3,7 +3,7 @@ import cytoscape from "cytoscape";
 import popper from "cytoscape-popper";
 import coseBilkent from "cytoscape-cose-bilkent";
 import tippy, { sticky } from "tippy.js";
-import 'tippy.js/dist/tippy.css';
+import "tippy.js/dist/tippy.css";
 import getGraphElements from "./utils/buildData";
 import { convertStringToHtml } from "./utils/dom";
 
@@ -72,7 +72,7 @@ export default function Home() {
               color: " #66ff66",
               "font-size": "10px",
               "text-wrap": "wrap",
-              "text-overflow-wrap": "anywhere"
+              "text-overflow-wrap": "anywhere",
             },
           },
           {
@@ -157,7 +157,41 @@ export default function Home() {
           quality: "default",
           // Whether to include labels in node dimensions. Useful for avoiding label overlap
           nodeDimensionsIncludeLabels: true,
-          idealEdgeLength: 50,
+          fit: true,
+          // Padding on fit
+          padding: 10,
+          // Whether to enable incremental mode
+          randomize: true,
+          // Node repulsion (non overlapping) multiplier
+          nodeRepulsion: 9000,
+          // Ideal (intra-graph) edge length
+          idealEdgeLength: 70,
+          // Divisor to compute edge forces
+          edgeElasticity: 0.45,
+          // Nesting factor (multiplier) to compute ideal edge length for inter-graph edges
+          nestingFactor: 0.1,
+          // Gravity force (constant)
+          gravity: 0.25,
+          // Maximum number of iterations to perform
+          numIter: 2500,
+          // Whether to tile disconnected nodes
+          tile: true,
+          // Type of layout animation. The option set is {'during', 'end', false}
+          animate: "end",
+          // Duration for animate:end
+          animationDuration: 500,
+          // Amount of vertical space to put between degree zero nodes during tiling (can also be a function)
+          tilingPaddingVertical: 10,
+          // Amount of horizontal space to put between degree zero nodes during tiling (can also be a function)
+          tilingPaddingHorizontal: 10,
+          // Gravity range (constant) for compounds
+          gravityRangeCompound: 1.5,
+          // Gravity force (constant) for compounds
+          gravityCompound: 1.0,
+          // Gravity range (constant)
+          gravityRange: 3.8,
+          // Initial cooling factor for incremental layout
+          initialEnergyOnIncremental: 0.5,
         },
       });
 
