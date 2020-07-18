@@ -175,7 +175,7 @@ async function bootstrapData(remId) {
   const graphElements = visibleRems
     .map((v, index) => {
       const title = nameText[index];
-      const fifthBreakIndex = nthOccurrence(title, " ", 10);
+      const fifthBreakIndex = nthOccurrence(title, " ", 15);
       const processedTitle =
         fifthBreakIndex >= 0 ? `${title.substr(0, fifthBreakIndex)}...` : title;
       return {
