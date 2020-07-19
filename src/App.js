@@ -169,11 +169,7 @@ export default function Home() {
               "target-arrow-color": "data(line_color)",
               "target-arrow-shape": "data(target_arrow_shape)",
               "curve-style": "bezier",
-              "arrow-scale": 1,
-              label: "data(label)",
-              color: "green",
-              "font-size": "7px",
-              "text-wrap": "wrap",
+              "arrow-scale": 1
             },
           },
           {
