@@ -112,11 +112,11 @@ async function getContent(content, visibleRems = [], remId, isWithAnchor) {
               name: existingRem.name,
             };
           }
-          const a = await getRemByID(r._id);
-          contentRems.push(a);
+          const newRem = await getRemByID(r._id);
+          contentRems.push(newRem);
           return {
-            remId: existingRem._id,
-            name: existingRem.name,
+            remId: newRem._id,
+            name: newRem.name,
           };
         })
     );
