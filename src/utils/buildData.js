@@ -199,6 +199,7 @@ async function bootstrapData() {
             source: v._id,
             target: c,
             target_arrow_shape: "diamond",
+            line_color: '#ccc'
           },
         }))
       );
