@@ -17,7 +17,7 @@ Rem-graph is a graph plugin for [Remnote](https://www.remnote.io/)
 2. Press "Add Plugin"
 3. (Required) Type Plugin Name. Ex: rem-graph
 4. (Option) Plugin Description. Ex: by nhanvu327
-5. (Required) Plugin URL. Copy and paste this `https://bolder-colossal-orbit.glitch.me/`
+5. (Required) Plugin URL. Copy and paste this `https://www.nhanvu327.com/rem-plugins/graph`
 6. (Required) CSS Height: your choice but the higher the better. My recommendation is 1000px
 7. (Required) CSS Width: 100%
 
